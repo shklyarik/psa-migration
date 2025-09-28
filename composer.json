@@ -1,0 +1,17 @@
+{
+    "name": "shklyarik/psa-migration",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Psa\\Migration\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Pavel Shklyarik",
+            "email": "shklyarik.pavel@gmail.com"
+        }
+    ],
+    "require": {}
+}
