@@ -11,6 +11,11 @@ use Psa\Qb\Db;
  */
 class Migration
 {
+    /**
+     * The database instance used for executing SQL queries.
+     *
+     * @var Db
+     */
     private Db $db;
 
     /**
@@ -20,6 +25,12 @@ class Migration
     ) {
     }
 
+    /**
+     * The application instance.
+     * Expected to provide access to components such as the database connector.
+     *
+     * @var mixed
+     */
     public function setDbInstance(Db $db)
     {
         $this->db = $db;
@@ -68,16 +79,44 @@ class Migration
         $this->db->connect()->query($sql);
     }
 
+    /**
+     * Creates a boolean column definition.
+     *
+     * @return ColumnBuilder
+     *   Returns a ColumnBuilder configured as a TINYINT(1) with default value 0.
+     */
     public function boolean()
     {
         return new ColumnBuilder('TINYINT')->length(1)->defaultValue(0);
     }
 
+    /**
+     * Creates a decimal column definition.
+     *
+     * @param int|null $precision
+     *   The total number of digits (optional).
+     * @param int|null $scale
+     *   The number of digits to the right of the decimal point (optional).
+     *
+     * @return ColumnBuilder
+     *   Returns a ColumnBuilder configured as a DECIMAL column.
+     */
     public function decimal($precision = null, $scale = null)
     {
         return new ColumnBuilder('DECIMAL')->precision($precision)->scale($scale);
     }
 
+    /**
+     * Drops a column from a table.
+     *
+     * @param string $tableName
+     *   The name of the table to modify.
+     * @param string $columnName
+     *   The name of the column to drop.
+     *
+     * @return void
+     *   Executes an ALTER TABLE query to drop the specified column.
+     */
     public function dropColumn($tableName, $columnName)
     {
         $sql = 'ALTER TABLE `' . $tableName . '` DROP COLUMN `' . $columnName . '`';
@@ -85,6 +124,17 @@ class Migration
         $this->db->connect()->query($sql);
     }
 
+    /**
+     * Inserts a record into a table.
+     *
+     * @param string $tableName
+     *   The name of the table to insert into.
+     * @param array $data
+     *   An associative array of column => value pairs.
+     *
+     * @return mixed
+     *   The result of the insert operation, usually the inserted ID or a boolean.
+     */
     public function insert($tableName, $data)
     {
         $sql = $this->db->from($tableName)->insertSql($data);
@@ -92,6 +142,17 @@ class Migration
         return $this->db->from($tableName)->insert($data);
     }
 
+    /**
+     * Deletes rows from a table.
+     *
+     * @param string $tableName
+     *   The name of the table to delete from.
+     * @param array|string|null $condition
+     *   Optional WHERE condition. Can be an associative array or raw SQL string.
+     *
+     * @return int
+     *   The number of rows deleted.
+     */
     public function delete($tableName, $condition = null)
     {
         $query = $this->db->from($tableName);
@@ -169,6 +230,15 @@ class Migration
         return (new ColumnBuilder('BIGINT'))->length($length);
     }
 
+    /**
+     * Creates an integer column definition.
+     *
+     * @param int|null $length
+     *   Optional length of the integer column (e.g., 11). If null, the default database length is used.
+     *
+     * @return ColumnBuilder
+     *   Returns a ColumnBuilder configured as an INT column.
+     */
     public function integer($length = null)
     {
         return (new ColumnBuilder('INT'))->length($length);
@@ -194,6 +264,12 @@ class Migration
         return new ColumnBuilder('JSON');
     }
 
+    /**
+     * Defines an ENUM column.
+     *
+     * @param array $values List of allowed values.
+     * @return ColumnBuilder
+     */
     public function enum(array $values)
     {
         $escapedValues = array_map(fn($v) => "'$v'", $values);
@@ -201,6 +277,17 @@ class Migration
         return new ColumnBuilder($type);
     }
 
+    /**
+     * Adds a foreign key constraint.
+     *
+     * @param string $name Constraint name.
+     * @param string $table Table name.
+     * @param string|array $columns Column(s) in the table.
+     * @param string $refTable Referenced table.
+     * @param string|array $refColumns Referenced column(s).
+     * @param string|null $delete ON DELETE action.
+     * @param string|null $update ON UPDATE action.
+     */
     public function addForeignKey($name, $table, $columns, $refTable, $refColumns, $delete = null, $update = null)
     {
         if (is_array($columns)) {
@@ -232,6 +319,12 @@ class Migration
         $this->db->connect()->query($sql);
     }
 
+    /**
+     * Drops a foreign key constraint.
+     *
+     * @param string $name Constraint name.
+     * @param string $table Table name.
+     */
     public function dropForeignKey($name, $table)
     {
         $sql = "ALTER TABLE `{$table}` DROP FOREIGN KEY `{$name}`";
@@ -240,13 +333,13 @@ class Migration
         $this->db->connect()->query($sql);
     }
 
-    public function up()
-    {
-
+    /** Runs the migration. */
+    public function up() {
+        echo "NOT IMPLEMENTED!" . PHP_EOL;
     }
 
-    public function down()
-    {
-
+    /** Reverts the migration. */
+    public function down() {
+        echo "NOT IMPLEMENTED!" . PHP_EOL;
     }
 }
