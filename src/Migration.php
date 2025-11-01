@@ -143,6 +143,26 @@ class Migration
     }
 
     /**
+     * Updates records in a table based on a condition.
+     *
+     * @param string $tableName
+     *   The name of the table to update.
+     * @param array $data
+     *   An associative array of column => value pairs to update.
+     * @param mixed $condition
+     *   Optional. The condition to match rows that should be updated.
+     *
+     * @return mixed
+     *   The result of the update operation, usually the number of affected rows or a boolean.
+     */
+    public function update($tableName, $data, $condition = null)
+    {
+        $sql = $this->db->from($tableName)->where($condition)->updateSql($data);
+        echo new HighlightSql($sql)->content() . PHP_EOL;
+        return $this->db->from($tableName)->where($condition)->update($data);
+    }
+
+    /**
      * Deletes rows from a table.
      *
      * @param string $tableName
