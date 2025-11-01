@@ -28,7 +28,7 @@ class MigrationCreateCommand
         $o = [
             '<?php',
             '',
-            'use use Psa\Migration\Migration;',
+            'use Psa\Migration\Migration;',
             '',
             'return new class extends Migration',
             '{',
