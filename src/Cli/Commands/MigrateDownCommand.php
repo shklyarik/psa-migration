@@ -7,7 +7,7 @@ use Psa\Core\Cli\App;
 use Throwable;
 use RuntimeException;
 
-class MigrationDownCommand
+class MigrateDownCommand
 {
     public function run(Db $db, App $app)
     {

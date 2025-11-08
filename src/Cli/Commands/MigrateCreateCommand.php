@@ -4,7 +4,7 @@ namespace Psa\Migration\Cli\Commands;
 
 use Psa\Core\Cli\App;
 
-class MigrationCreateCommand
+class MigrateCreateCommand
 {
     public function run(App $app)
     {
@@ -26,12 +26,12 @@ class MigrationCreateCommand
         $className = 'm' . date('ymd_His') . '_' . $name;
         $file_path = $migration_dir . '/' . $className . '.php';
 
-        file_put_contents($file_path, $this->getEmptyFileData($className));
+        file_put_contents($file_path, $this->getEmptyFileData());
 
         echo "Migration created: $file_path\n";
     }
 
-    private function getEmptyFileData($className)
+    private function getEmptyFileData()
     {
         $o = [
             '<?php',

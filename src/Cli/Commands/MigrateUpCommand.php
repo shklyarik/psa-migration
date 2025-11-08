@@ -5,7 +5,7 @@ namespace Psa\Migration\Cli\Commands;
 use Psa\Qb\Db;
 use Psa\Core\Cli\App;
 
-class MigrationUpCommand
+class MigrateUpCommand
 {
     public function run(Db $db, App $app)
     {
