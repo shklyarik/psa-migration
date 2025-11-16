@@ -275,6 +275,16 @@ class Migration
     }
 
     /**
+     * Defines a `MEDIUMTEXT` column.
+     *
+     * @return ColumnBuilder
+     */
+    public function mediumText()
+    {
+        return new ColumnBuilder('MEDIUMTEXT');
+    }
+
+    /**
      * Defines a `JSON` column.
      *
      * @return ColumnBuilder
